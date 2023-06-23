@@ -19,6 +19,7 @@ endif()
 find_package(ament_cmake REQUIRED)
 find_package(rclcpp REQUIRED)
 find_package(std_msgs REQUIRED)
+find_package(geometry_msgs REQUIRED)
 find_package(nav_msgs REQUIRED)
 find_package(mcu_serial_com REQUIRED)
 
@@ -33,13 +34,16 @@ if(BUILD_TESTING)
   ament_lint_auto_find_test_dependencies()
 endif()
 
-# define the binary to be built and identify the source files with with which to build it
-add_executable(main src/roboclaw_driver.cpp)
-# tell CMake that the executable "main" depends on the library "my_value_converter_library"
-ament_target_dependencies(main mcu_serial_com rclcpp std_msgs nav_msgs)
-# install the executable in the lib folder to make it detectable through setup.bash
+add_executable(roboclaw_driver src/roboclaw_driver.cpp)
+add_executable(twistTest src/subscriber_twist.cpp)
+
+ament_target_dependencies(roboclaw_driver mcu_serial_com rclcpp std_msgs geometry_msgs)
+ament_target_dependencies(twistTest mcu_serial_com rclcpp geometry_msgs)
+
+
 install(TARGETS 
-  main
+  roboclaw_driver
+  twistTest
   DESTINATION lib/${PROJECT_NAME}/
 )
 
