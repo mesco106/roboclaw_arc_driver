@@ -23,10 +23,7 @@ class MinimalSubscriber : public rclcpp::Node
   private:
     void topic_callback(const geometry_msgs::msg::Twist::SharedPtr msg) const
     {
-      //RCLCPP_INFO(this->get_logger(), "Linear x: '%f'", msg->linear.x);
-      //RCLCPP_INFO(this->get_logger(), "Angular z: '%f'", msg->angular.z);
       serial.write("S " + std::to_string(msg->linear.x) + " " + std::to_string(msg->angular.z));
-      //serial.write(std::to_string(msg->angular.z));
     }
     rclcpp::Subscription<geometry_msgs::msg::Twist>::SharedPtr subscription_;
 };

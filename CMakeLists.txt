@@ -20,7 +20,6 @@ find_package(ament_cmake REQUIRED)
 find_package(rclcpp REQUIRED)
 find_package(std_msgs REQUIRED)
 find_package(geometry_msgs REQUIRED)
-find_package(nav_msgs REQUIRED)
 find_package(mcu_serial_com REQUIRED)
 
 if(BUILD_TESTING)
@@ -35,15 +34,11 @@ if(BUILD_TESTING)
 endif()
 
 add_executable(roboclaw_driver src/roboclaw_driver.cpp)
-add_executable(twistTest src/subscriber_twist.cpp)
 
 ament_target_dependencies(roboclaw_driver mcu_serial_com rclcpp std_msgs geometry_msgs)
-ament_target_dependencies(twistTest mcu_serial_com rclcpp geometry_msgs)
-
 
 install(TARGETS 
   roboclaw_driver
-  twistTest
   DESTINATION lib/${PROJECT_NAME}/
 )
 
